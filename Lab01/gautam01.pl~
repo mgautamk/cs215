@@ -1,0 +1,72 @@
+#! /usr/local/bin/perl -w
+use strict;
+
+#Auth
+
+
+#Get the File
+my $file = '/home/student/mgautam/cs215f13/Lab01/Lab01.input';
+my @lines;
+
+# Open the File, and read it into an array
+open(WORDS, "< $file");
+
+#Exit if cannot open file
+if (!open WORDS, $file) {
+    print "Cannot Open the input File!\n";
+}
+
+while (<WORDS>) {
+    push (@lines, $_);
+}
+close(WORDS);
+
+# Chomp and Sort the Input File
+chomp(@lines = sort(@lines));
+
+#Go through each lines
+foreach my $entry (@lines) 
+{
+    my $vowels =0;
+    my $consenants =0;
+    my $digit=0;
+    my $special_chars=0;
+
+#Split each character
+    my @chars = split(//, $entry);
+
+#Return 1 if Characters are vowels
+sub IsVowel($) 
+{
+    my $char = $_;
+
+      return 1 if($char =~/[aeiou]/i);
+      return 0;
+ }
+
+   foreach (@chars) 
+{
+
+   if (IsVowel($)))
+   {
+       $vowels++;
+   }
+
+      elsif ($_ =~ /[bcdfghjklmnpqrstvwxyz]/i)
+      {
+       $consenants++;
+      }
+
+   
+      elsif ($_ =~ /\d/)
+      {
+	  $digit++;
+      }
+      else 
+      {
+	  $special_chars++;
+      }
+}
+#Print the output
+print "$entry\t$vowels\t$consenants\t$digit\t$special_chars\n";
+}

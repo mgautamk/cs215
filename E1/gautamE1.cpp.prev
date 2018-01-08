@@ -1,0 +1,48 @@
+#include <iostream>
+
+using namespace std;
+
+void Writeout (const int V[], const int N, ostream & output);
+void Reverse (int V[], const int N);
+int main ()
+{
+
+  int number;
+  cout << "Enter the number of the value to be calculated: ";
+  cin >> number;
+
+  int * values = new int [number];
+  for (int i = 0; i < number; i++)
+    {
+      int result = 1 + 3 * i;
+      values[i] = result; 
+      //      cout << result << " added to values\n";
+    }
+  Writeout (values, number, cout);
+  Reverse (values, number);
+  Writeout (values , number, cout);
+  delete [] values;
+  return 0;
+}
+
+void Writeout (const int V[], const int N, ostream & output)
+{
+  for (int i = 0; i < N; i++)
+    {
+      cout << V[i] << "\t";
+    }
+  cout << endl;
+}
+
+void Reverse (int V[], const int N)
+{
+  int j;
+  for (int i = 0, j = N-1; i < j; i++, j--)
+    {
+      int copy = V[i];
+      V[i] = V[j];
+      V[j] = copy;
+    }
+}
+
+

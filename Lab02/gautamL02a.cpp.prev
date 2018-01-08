@@ -1,0 +1,33 @@
+//program: Lab 2a
+//Description: This program will be used to explore how C++ handles
+// input for the various data types.
+
+//Data will be read from the standard inputstream
+// Results will be written to the standard output stream
+
+#include <iostream>
+#include <string>
+//cin and cout will be used
+
+using namespace std;
+
+int main ()
+{
+
+  //This variable will be used to store the current input value
+  string  v;
+  cout << "Enter the data set Imput: ";
+  cin>> v;
+  cout << "The input value is " << v << "; the fail flag is "
+       << (cin.fail() ? "true" : "false") << endl;
+
+  cin >> v;
+  cout << "The input value is " << v << "; the fail flag is "
+       << (cin.fail() ? "true" : "false") << endl;
+
+  cin >> v;
+  cout << "The input value is " << v << "; the fail flag is "
+       << (cin.fail() ? "true" : "false") << endl;
+  return 0;
+}
+

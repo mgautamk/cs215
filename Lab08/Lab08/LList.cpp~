@@ -1,0 +1,138 @@
+#include "LList.h"
+LList::LNode::LNode ()
+{ // This stubb initializes the Nodes to zero and points the
+  //next node to NULL
+  data = 0;
+  next = NULL;
+}
+
+LList::LList ()
+{ // This stubb empties the list not pointing to anything
+  size = 0;
+  first = NULL;
+}
+
+LList::LList (const LList & other)
+{ // This is a stubb; you will be completing this function.
+  first = NULL;
+  size = 0;
+  LNode * p = other.first;
+  while (p != NULL)
+    {
+      InsertLast(p->data);
+      p = p->next;
+    }
+}
+
+LList::~LList ()
+{ // This is a stubb; you will be completing this function.
+}
+
+LList & LList::operator = (const LList & other)
+{ // This is a stubb; you will be completing this function.
+  if (this == & other)
+    return * this;
+  while (first)
+    DeleteFirst();
+  for (LNode * n = other.first; n != NULL; n = n->next)
+    InsertLast(n->data);
+  return * this;
+}
+
+bool LList::operator == (const LList & other)
+{ // This is a stubb; you will be completing this function.
+  if (size != other.size)
+    false;
+  LNode * n = first;
+  LNode * m = other.first;
+  while (n != NULL)
+    {
+      if (n->data != m->data)
+	return false;
+      n = n->next;
+      m = m->next;
+    }
+  return true;
+}
+
+int LList::Size () const
+{ // Return the size value
+
+  return size;
+}
+
+ostream & operator << (ostream & outs, const LList & L)
+{ // This stub outputs the pointer data and pushes the pointer to next node
+  // if current node not empty
+  LList::LNode * p = L.first;
+  while (p != NULL)
+    {
+      outs << p->data << ' ';
+      p = p->next;
+    }
+	return outs;
+}
+
+bool LList::InsertFirst (const int & value)
+{ // This is a stubb; you will be completing this function.
+  LNode * np = new LNode;
+  if (np == NULL)
+	return false;
+  np->data = value;
+  np->next = first;
+  first = np;
+  size++;
+  return true;
+}
+
+bool LList::InsertLast (const int & value)
+{ // This is a stubb; you will be completing this function.
+  if (size == 0)
+    return InsertFirst(value);
+  LNode * np = new LNode;
+  if (np == NULL)
+    return false;
+  np->data = value;
+  LNode * p = first;
+  while (p->next !=NULL)//walk to the last node
+    {
+      p = p->next;
+    }
+  p->next = np;
+  size++;
+  return true;
+}
+
+bool LList::DeleteFirst ()
+{ // This is a stubb; you will be completing this function.
+    if (size == 0)
+    return false;
+  if (size == 1)
+    {
+      delete first;
+      first = NULL;
+      size = 0;
+      return true;
+    }
+  LNode * p = first;
+  first = first->next;
+  delete p;
+  size--;
+  return true;
+}
+
+bool LList::DeleteLast ()
+{ // This is a stubb; you will be completing this function.
+  if (size == 0)
+    return false;
+  if (size <= 1)
+    return DeleteFirst();
+  LNode * p = first;
+  while (p->next->next != NULL)
+    p = p->next;
+  delete p->next;
+  p->next = NULL;
+  size--;
+  return true;
+}
+

@@ -1,0 +1,53 @@
+
+Reading points from the file
+Entering default constructor for Coordinate Point
+Exiting default constructor for Coordinate Point
+Entering input operator for Coordinate Point
+Exiting input operator for Coordinate Point
+
+Reading and doing a push_back of a single point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering input operator for Coordinate Point
+Exiting input operator for Coordinate Point
+
+Reading and doing a push_back of a single point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+Entering input operator for Coordinate Point
+Exiting input operator for Coordinate Point
+
+Reading and doing a push_back of a single point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering copy constructor for Coordinate Point
+Exiting copy constructor for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+Entering input operator for Coordinate Point
+Exiting input operator for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+
+Writing points to standard output
+The points are: Entering output operator for Coordinate Point
+(5,17)Exiting output operator for Coordinate Point
+ Entering output operator for Coordinate Point
+(1,-2)Exiting output operator for Coordinate Point
+ Entering output operator for Coordinate Point
+(-2,4)Exiting output operator for Coordinate Point
+
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point
+Entering destructor for Coordinate Point
+Exiting destructor for Coordinate Point

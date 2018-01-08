@@ -1,0 +1,191 @@
+#ifndef LLIST_HPP
+#define LLIST_HPP
+
+#include <iostream>
+
+using namespace std;
+
+template <class LT> class LList;
+template <class LT> ostream & operator << (ostream & outs, const LList<LT> & L);
+
+
+template <class LT>
+class LList
+{
+   private:
+      class LNode
+      {
+      public:
+         LNode ();
+         LT data;
+         LNode * next;
+      };
+   public:
+      LList ();
+      LList (const LList & other);
+      ~LList ();
+      LList & operator = (const LList & other);
+      bool operator == (const LList & other);
+      int Size () const;
+  friend ostream & operator << <> (ostream & outs, const LList<LT> & L);
+      bool InsertFirst (const LT & value);
+      bool InsertLast (const LT & value);
+      bool DeleteFirst ();
+      bool DeleteLast ();
+  void Forward (void function (const LT & param));
+   private:
+      LNode * first;
+      int size;
+};
+template <class LT>
+LList<LT>::LNode::LNode ()
+{ // This function initializes the Nodes to zero and points the
+  //next node to NULL
+next = NULL;
+}
+
+template <class LT>
+LList<LT>::LList ()
+{ // This function empties the list not pointing to anything
+first = NULL;
+size = 0;
+}
+
+template <class LT>
+LList<LT>::LList (const LList & other)
+{ // This function sets the value of size to zero, sets the 
+  //value of first to NULL and while pointer is not null, it calls
+  //the InsertLast function to put the data into the last space
+first = NULL;
+size = 0;
+for (LNode * n = other.first; n != NULL; n = n->next)
+  InsertLast (n->data);
+}
+
+template <class LT>
+LList<LT>::~LList ()
+{ // This is a deconstructor, it will delete the first if its
+  //not empty
+while (first)
+  DeleteFirst();
+}
+
+template <class LT>
+LList<LT> & LList<LT>::operator = (const LList<LT> & other)
+{ // This function checks to see if two nodes are equal, if they
+  //are not equal remove the data in the first and move the list
+  if (this == & other)
+    return * this;
+  while (first)
+    DeleteFirst();
+  for (LNode * n = other.first; n != NULL; n = n->next)
+    InsertLast(n->data);
+  return * this;
+}
+
+template <class LT>
+bool LList<LT>::operator == (const LList & other)
+{ // This function returns false if sizes of two nodes aren't equal,
+  //compares corresponding nodes, and if any pair are different, returns false,
+  //else returns true
+  if (size != other.size)
+    return false;
+  LNode * n = first;
+  LNode * m = other.first;
+  while (n != NULL)
+    {
+      if (n->data != m->data)
+	return false;
+      n = n->next;
+      m = m->next;
+    }
+  return true;
+}
+
+template <class LT>
+int LList<LT>::Size () const
+{ // Returns the size value
+  return size;
+}
+
+template <class LT>
+ostream & operator << (ostream & outs, const LList<LT> & L)
+{ // This stub outputs the pointer data and pushes the pointer to next node
+  // if current node not empty
+if (L.first == NULL)
+  return outs;
+outs << L.first->data;
+typename LList<LT>::LNode * n;
+for (n= L.first->next; n != NULL; n = n->next)
+  outs << ' ' << n->data;
+return outs;
+}
+
+template <class LT>
+bool LList<LT>::InsertFirst (const LT & value)
+{ // This function Inserts the value to the front of the list
+  LNode * n = new LNode;
+  if (n == NULL)
+	return false;
+  n->data = value;
+  n->next = first;
+  first = n;
+  size++;
+  return true;
+}
+
+template <class LT>
+bool LList<LT>::InsertLast (const LT & value)
+{ // This function Inserts the value to the end of the list
+if (size == 0)
+  return InsertFirst(value);
+LNode * n = new LNode;
+if (n == NULL)
+  return false;
+n->data = value;
+n->next = NULL;
+		      LNode * p;
+for (p = first; p->next != NULL; p = p->next);
+p->next = n;
+size++;
+return true;
+}
+
+
+template <class LT>
+bool LList<LT>::DeleteFirst ()
+{ // This function deletes the first value from the list
+if (first ==NULL)
+  return false;
+LNode * n = first;
+first = n->next;
+delete n;
+size--;
+return true;
+}
+
+template <class LT>
+bool LList<LT>::DeleteLast ()
+{ // This function deletes the last value from the list
+  if (size == 0)
+    return false;
+  if (size == 1)
+    return DeleteFirst();
+LNode * n, *p;
+for (n = first; n->next != NULL; n = n->next)
+  p = n;
+
+  p->next = NULL;
+delete n;
+size--;
+return true;
+}
+
+template <class LT>
+void LList<LT>::Forward (void function (const LT & param))
+{
+for (LNode * n = first; n; n = n->next)
+  function (n->data);
+}
+
+#endif

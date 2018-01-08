@@ -1,0 +1,17 @@
+#iclude <iostream>
+
+using namespace std;
+
+int main ( int argc, char * argv [])
+{
+  cout << argc << " arguments passed to this program\n";
+
+for (int i = 0; i < argc; i++)
+  {
+    cout << "\targv[" << i << "] is "
+	 << argv[i] << endl;
+  }
+return 0;
+}
+
+ 

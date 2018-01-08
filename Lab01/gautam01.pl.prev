@@ -1,0 +1,68 @@
+#usr/bin/perl -w
+use strict;
+
+
+#Author: Mahesh Gautam
+#Program:Lab01
+#Date: FALL 2013
+#Description:This program reads a file with different characters into an array, sorts them
+#and splits them out counting number of vowels, digits, and special characters
+
+#Get the File
+my $file = '/home/mgautam/perl_exerises/Lab01/Lab01.input';
+my @lines;
+
+# Open the File, and read it into an array
+open(WORDS, "< $file");
+
+#Exit if cannot open file
+if (!open WORDS, $file) {
+    print "Cannot Open the input File!\n";
+}
+
+
+while (<WORDS>) {
+    push (@lines, $_);
+}
+close(WORDS);
+
+# Chomp and Sort the Input File
+chomp(@lines = sort(@lines));
+
+#Go through each lines
+foreach my $entry (@lines) 
+{
+    my $vowels =0;
+    my $consenants =0;
+    my $digit=0;
+    my $special_chars=0;
+
+#Split each character
+    my @chars = split(//, $entry);
+
+
+   foreach (@chars) 
+   {
+
+   if ($_ =~ /a|e|i|o|u/i)
+   {
+       $vowels++;
+   }
+
+      elsif ($_ =~ /[bcdfghjklmnpqrstvwxyz]/i)
+      {
+       $consenants++;
+      }
+
+   
+      elsif ($_ =~ /\d/)
+      {
+	  $digit++;
+      }
+      else 
+      {
+	  $special_chars++;
+      }
+   }
+    print "$entry       $vowels  $consenants   $digit   $special_chars\n";
+}

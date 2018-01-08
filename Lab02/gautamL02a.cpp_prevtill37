@@ -1,0 +1,41 @@
+//Assignment: Lab02
+//File:
+//Author:Mahesh Gautam
+//Date:Fall 2013
+//Description:
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+bool isvowel (char aletter);
+int main ()
+{
+
+  ifstream input;
+
+  string aword;
+  input.open ("words.txt");
+  while (input >> aword)
+    {
+      int lettercount =0;
+      int i =0;
+      while (i < aword.length())
+	{
+	  if (isalpha(aword[i]))
+	    lettercount++;
+	  i++;
+	}
+      cout << aword << '\t' << aword.length() << '\t' << lettercount  << endl;
+    }
+
+  return 0;
+}
+
+bool isvowel (char aletter)
+{
+  char upcase = toupper (aletter);
+  if (upcase == 'A' || upcase == 'E' || upcase == 'I'
+      || upcase == 'O' || upcase == 'U')
+    return true;
+  return false;
+}

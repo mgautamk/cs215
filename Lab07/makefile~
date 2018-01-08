@@ -1,0 +1,14 @@
+L07.out : Lab07app.o CoordPt.o
+	g++ -o L07.out Lab07app.o CoordPt.o
+
+Lab07app.o : Lab07app.cpp CoordPt.h
+	g++ -c Lab07app.cpp
+
+CoordPt.o : CoordPt.cpp CoordPt.h
+	g++ -c CoordPt.cpp
+
+clean :
+	rm -f *.o L07.out
+
+run : L07.out points.txt
+	./L07.out points.txt

@@ -1,0 +1,11 @@
+Lab09 : application.o CoordPt.o
+	g++ -o Lab09 application.o CoordPt.o -g
+
+application.o : application.cpp LLsit.hpp CoordPt.h
+	g++ -c application.cpp -g
+
+CoordPt.o : CoordPt.cpp CoordPt.h
+	g++ -c CoordPt.cpp -g
+
+clean :
+	rm -f core. * *.o lab

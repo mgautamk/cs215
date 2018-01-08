@@ -1,0 +1,194 @@
+//Title: Lab 6 Worddata class and Implementation
+//Author: Mahesh Gautam
+//Description: This is the header file for Lab05.cpp, It defines the WORDDARA Class,
+//copies everything to a new array and retruns values using accessor and mutator
+//functions
+
+#include <cstring>
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include "WordData.h"
+
+//Function Implementations will be placed after this line
+WordData::WordData()
+{
+  word = new char [1];
+  word[0] = '\0';
+  vowels = 0;
+  consonants = 0;
+  digits = 0;
+  specialchars = 0;
+}
+
+//Implementation of the copy constructor
+WordData::WordData (const WordData & OtherWord)
+{
+  word = new char [1+strlen(OtherWord.word)];
+  strcpy (word, OtherWord.word);
+  vowels = OtherWord.vowels;
+  consonants = OtherWord.consonants;
+  digits = OtherWord.digits;
+  specialchars = OtherWord.specialchars;
+}
+
+//Implementation of ~Worddata
+WordData::~WordData()
+{
+  delete [] word;
+}
+//write a function to return true if vowels
+bool isvowel (char aletter)
+{
+  char upcase = toupper (aletter);
+  if (upcase == 'A' || upcase == 'E' || upcase == 'I'
+      || upcase =='O' || upcase == 'U')
+    return true;
+  return false;
+} 
+
+//Implement the mutator function
+void WordData::SetWord (string InWord)
+{
+  delete [] word;
+  word = new char [1+InWord.length()];
+  strcpy (word, InWord.c_str());
+  vowels = consonants = digits = specialchars = 0;
+  for (int i = 0; i < strlen(word); i++)
+    if (isalpha (word[i]))
+      switch (toupper (word[i]))
+	{
+	case 'A': case 'E': case 'I':
+	case 'O': case 'U':
+	  vowels++; break;
+	default:
+	  consonants++;
+	}
+    else if (isdigit (word[i]))
+      digits++;
+    else
+      specialchars++;
+}
+//Implement the accessor function
+string WordData::GetWord () const
+{
+  return word;
+}
+
+//Implement the accessor function GetVowels
+int WordData::GetNumVowels () const
+{
+  return vowels;
+}
+//Implement the accessor function GetConsonants
+int WordData::GetNumConsonants () const
+{
+  return consonants;
+}
+//Implementthe accessor function GetNumDigits
+int WordData::GetNumDigits () const
+{
+  return digits;
+}
+//Implement the accessor function GetNumSpecialCharacters
+int WordData::GetNumSpecialChars () const
+{
+  return specialchars;
+}
+//Implementation of the less than operator
+bool WordData::operator < (const WordData & OtherWord) const
+{
+  if (strlen(word) < strlen(OtherWord.word))
+    return true;
+  if (strlen(word) > strlen(OtherWord.word))
+    return false;
+  string one = word;
+  for (int i = 0; i < one.length(); i++)
+    one[i] = tolower(one[i]);
+  string two = OtherWord.word;
+  for (int i =0; i < two.length(); i++)
+    two[i] = tolower(two[i]);
+  return one < two;
+}
+
+bool WordData::operator > (const WordData & OtherWord) const
+{
+  if (strlen(word) > strlen(OtherWord.word))
+    return true;
+  if (strlen(word) < strlen(OtherWord.word))
+    return false;
+  string one = word;
+  for (int i = 0; i < one.length(); i++)
+    one[i] = tolower(one[i]);
+  string two = OtherWord.word;
+  for (int i =0; i < two.length(); i++)
+    two[i] = tolower(two[i]);
+  return one > two;
+}
+
+
+WordData & WordData::operator = (const WordData & OtherWord)
+{
+//Test for self assignment. If this and the address of OtherWord                                            
+//are the same, return the boject referenced by this:                                                                                                  
+  if (this == &OtherWord)
+    return * this;
+//Delete the existing word
+  delete [] word;
+//Allocate space for new word 
+  word = new char [1+strlen(OtherWord.word)];
+//copy the new word from the OtherWord into word
+  strcpy (word, OtherWord.word);
+
+//Copy the remaining  attributes of OtherWord into the corresponding                                            //attribute of this:                                                                                           
+  vowels = OtherWord.vowels;
+  consonants = OtherWord.consonants;
+  digits = OtherWord.digits;
+  specialchars = OtherWord.specialchars;
+
+  //Return the object referenced by this:                                                                  
+  return * this;
+}
+
+bool WordData::operator == (const WordData & OtherWord) const
+//Implenentation of the bool operator                                                                                                                
+{
+  if (strcmp (word, OtherWord.word) == 0)
+    return true;
+  return false;
+}
+
+ostream & operator << (ostream & outs, const WordData & w)
+{
+  //Implementation of the output operator                                                                                                              
+  outs << setw(12) << left << w.word;
+  outs << setw(8) << right << w.vowels;
+  outs << setw(8) << w.consonants;
+  outs << setw(8) << w.digits;
+  outs << setw(8) << w.specialchars;
+  return outs;
+}
+
+istream & operator >> (istream & ins, WordData & w)
+{
+  string astring;
+  ins >> astring;
+  if(ins.good())
+    {
+      w.SetWord(astring);
+    }
+  return ins;
+}
+
+
+
+//Implement the output function
+void WordData::WriteData (ostream & outs) const
+{
+  outs << setw (12) << left << word;
+  outs << setw (8) << right << vowels;
+  outs << setw (8)<< consonants;
+  outs << setw (8) << digits;
+  outs << setw (8)<< specialchars;
+}
+

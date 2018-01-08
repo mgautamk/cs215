@@ -1,0 +1,69 @@
+//Assignment: Lab02
+//File:words.txt
+//Author:Mahesh Gautam
+//Date:Fall 2013
+//Description:This program reads words, digits, and other characters from a file,
+//counts the number of occurance for each type, and prints them out in a
+//corresponding order
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+#include <cctype>
+
+using namespace std;
+bool isvowel (char aletter);
+int main ()
+{
+
+  ifstream input;
+  string aword;
+
+  input.open ("words.txt");  //open the file
+  while (input >> aword)    //read from file
+    {
+      //declare variables and initialize them
+      int vowelcount =0;
+      int lettercount =0;
+      int consonants =0;
+      int digitcount =0;
+      int special_chars =0;
+      int i =0;
+     
+      while (i < aword.length())    //while loop to count until words length
+	{
+	  if (isalpha(aword[i]))    // check for letters
+	    {
+	  if (isvowel(aword[i]))    //check for vowels
+	      vowelcount++;
+	      i++;
+	      //  else
+	      //   consonants++;
+	      //   i++;
+		     
+	     }
+	  else
+	    {
+	      if(isdigit(aword[i]))    //check for digits
+		digitcount++;
+	        i++;
+		//  else
+		//	   special_chars++;
+		//      i++;
+	    }
+        }
+      cout << aword << '\t' << aword.length() << '\t' << vowelcount << '\t' << consonants << '\t' << digitcount << '\t' << special_chars << '\t' << endl;
+    }
+
+  return 0;
+}
+//Define sub function Isvowel
+bool isvowel (char aletter)
+{
+  char upcase = toupper (aletter);
+  if (upcase == 'A' || upcase == 'E' || upcase == 'I'
+      || upcase == 'O' || upcase == 'U')
+    return true;
+  return false;
+}
